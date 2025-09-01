@@ -1,7 +1,8 @@
 import express from "express";
 import dados from "./src/data/dados.js"
+import bruxos from "./src/data/bruxos.js";
 
-const { bruxos, casas, varinhas, animais, pocoes } = dados;
+const { casas, varinhas, animais, pocoes } = dados;
 
 const app = express();
 app.use(express.json());
