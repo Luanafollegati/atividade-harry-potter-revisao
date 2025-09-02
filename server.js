@@ -9,28 +9,25 @@ app.use(express.json());
 
 const serverPort = 3000;
 
-app.get("/", (req, res) => { 
-    res.send("servidor funcionando...")                                
+app.get("/", (req, res) => {
+    res.send("servidor funcionando...")
 })
 
-app.get("/bruxos", (req, res) => {
-    res.json(bruxos);
-})
 
-app.get ("/bruxos/:id", (req, res) => {
+app.get("/bruxos/:id", (req, res) => {
     const id = parseInt(req.params.id);
 
     const bruxo = bruxos.find(b => b.id === id);
-    
-    
 
-if(bruxo) {
-    res.status(200).json(bruxo);
-}else{
-    res.status(404).json({
-        mensagem:"Bruxo não encontrado!"
-    })
-  }
+
+
+    if (bruxo) {
+        res.status(200).json(bruxo);
+    } else {
+        res.status(404).json({
+            mensagem: "Bruxo não encontrado!"
+        })
+    }
 });
 
 app.get("/bruxos/nome/:nome", (req, res) => {
@@ -39,91 +36,119 @@ app.get("/bruxos/nome/:nome", (req, res) => {
 
     const nomesFiltrados = bruxos.filter(b => b.nome.toLowerCase().includes(nome));
 
-    if(nomesFiltrados) {
+    if (nomesFiltrados.length > 0) {
         res.status(200).json(nomesFiltrados);
-    }else {
+    } else {
         res.status(404).json({
-            mensagen:"Bruxo não encontrado!"
+            mensagem: "Bruxo não encontrado!"
         })
     }
 });
 
+//rota para buscar bruxos
+app.get("/bruxos", (req, res) => {
 
-app.get ("/bruxos",(req, res) => {
-    let bruxos = req.params.nome;
-    bruxos = bruxos.toLowerCase();
-
-    const bruxosFiltrados = bruxos.filter(b => b.bruxos.toLowerCase().includes(bruxos));
-
-
-    if(bruxos.lenght > 0){
+    if (bruxos.length > 0) {
         res.status(200).json(bruxos);
     } else {
         res.status(404).json({
-            mensagem:"Nenhum bruxo encontrado!"
+            mensagem: "Nenhum bruxo encontrado!"
         })
     }
 });
 
-app.get("/casas", (req, res) =>{
-    let casas = req.params.nome;
-    casas = casas.toLowerCase();
-    const casasFiltrados = casas.filter(c => c.casas.toLowerCase().includes(casas));
+//rota para buscar casas
+app.get("/casas", (req, res) => {
 
-
-    if(casas.lenght > 0){
+    if (casas.length > 0) {
         res.status(200).json(casas);
     } else {
         res.status(404).json({
-            mensagem:"Nenhuma casa encontrado!"
+            mensagem: "Nenhuma casa encontrada!"
         })
     }
 });
 
-app.get("/varinhas", (req, res) =>{
-    let varinhas = req.params.nome;
-    varinhas = varinhas.toLowerCase();
+//rota para buscar varinhas
+app.get("/varinhas", (req, res) => {
 
-    const varinhasFiltrados = varinhas.filter(v => v.varinhas.toLowerCase().includes(varinhas));
-
-
-    if(varinhas.lenght > 0){
+    if (varinhas.length > 0) {
         res.status(200).json(varinhas);
     } else {
         res.status(404).json({
-            mensagem:"Nenhuma varinha encontrado!"
+            mensagem: "Nenhuma varinha encontrada!"
         })
     }
 });
 
-app.get("/animais", (req, res) =>{
-    let animais = req.params.nome;
-    animais = animais.toLowerCase();
+//rota para buscar animais
+app.get("/animais", (req, res) => {
 
-    const animaisFiltrados = animais.filter(a => a.animais.toLowerCase().includes(animais));
-
-
-    if(animais.lenght > 0){
+    if (animais.length > 0) {
         res.status(200).json(animais);
     } else {
         res.status(404).json({
-            mensagem:"Nenhum animal encontrado!"
+            mensagem: "Nenhum animal encontrado!"
         })
     }
 });
 
-app.get("/pocoes", (req, res) =>{
-    let pocoes = req.params.nome;
-    pocoes = pocoes.toLowerCase();
+//rota para buscar poções
+app.get("/pocoes", (req, res) => {
 
-    const pocoesFiltrados = pocoes.filter(p => p.pocoes.toLowerCase().includes(pocoes));
-
-
-    if(pocoes.lenght > 0){
+    if (pocoes.length > 0) {
         res.status(200).json(pocoes);
     } else {
         res.status(404).json({
-            mensagem:"Nenhuma poção encontrado!"
+            mensagem: "Nenhuma poção encontrada!"
+        })
+    }
+});
+
+//rota GetbyId para varinhas
+app.get("/varinhas/:id", (req, res) => {
+
+    let id = parseInt(req.params.id);
+
+    const varinha = varinhas.find(v => v.id === id);
+
+    if (varinha) {
+        res.status(200).json(varinha);
+    } else {
+        res.status(404).json({
+            mensagem: "Varinha não encontrada!"
+        })
+    }
+});
+
+//rota GetbyId para animais 
+app.get("/animais/:id", (req, res) => {
+
+    let id = parseInt(req.params.id);
+
+    const animal = animais.find(a => a.id === id);
+
+    if (animal) {
+        res.status(200).json(animal);
+    } else {
+        res.status(404).json({
+            mensagem: "Animal não encontrado!"
+        })
+    }
+});
+
+//rota GetbyId para poções
+app.get("/pocoes/:id", (req, res) => {
+
+    const id = parseInt(req.params.id);
+
+    const pocao = pocoes.find(p => p.id === id);
+
+    if (pocao) {
+        res.status(200).json(pocao)
+    } else {
+        res.status(404).json({
+            mensagem: "Poção não encontrada!"
         })
     }
 });
